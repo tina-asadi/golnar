@@ -276,6 +276,49 @@
     $('.x', detail).focus();
   }
 
+  /* ---------- Carpet guide ---------- */
+
+  function initCarpetGuide() {
+    const mount = $('#anatRug');
+    const carpet = createCarpet(STUDY_RUG, 80, 5, mount);
+    const list = $('#parts');
+    let active = REGION.MEDALLION;
+
+    // The fringe lives outside the canvas (CSS pseudo-elements), so it is highlighted with classes.
+    const preview = (region) => {
+      mount.classList.toggle('hl-fringe', region === REGION.FRINGE);
+      mount.classList.toggle('dim-fringe', region !== REGION.FRINGE);
+      carpet.paint(region === REGION.FRINGE ? -1 : region);
+    };
+
+    const select = (region) => {
+      active = region;
+      for (const button of $$('.part', list)) {
+        button.setAttribute('aria-pressed', String(Number(button.dataset.region) === region));
+      }
+      preview(region);
+    };
+
+    for (const part of CARPET_PARTS) {
+      const item = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'part';
+      button.dataset.region = part.region;
+      button.innerHTML = `
+      <span class="term"><span class="fa" lang="fa">${part.fa}</span><i>${part.transliteration}</i></span>
+      <strong>${part.name}</strong>
+      <span class="desc">${part.text}</span>`;
+      button.addEventListener('click', () => select(part.region));
+      button.addEventListener('mouseenter', () => preview(part.region));
+      button.addEventListener('mouseleave', () => preview(active));
+      item.append(button);
+      list.append(item);
+    }
+
+    select(active);
+  }
+
   /* ---------- Start ---------- */
 
   initHero();
@@ -283,4 +326,5 @@
   renderFilters();
   renderGrid();
   initBag();
+  initCarpetGuide();
 })();

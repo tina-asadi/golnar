@@ -1,7 +1,8 @@
 /* =========================================================
    Golnar Persian Carpets: style.css
    1 Tokens (light + dark) · 2 Base · 3 Header · 4 Hero · 5 Weaving cities
-   6 Collection · 11 Footer · 12 Bag, detail and toast · 13 Reduced motion
+   6 Collection · 7 Carpet guide · 11 Footer · 12 Bag, detail and toast
+   13 Reduced motion
    ========================================================= */
 
 /* Layout: a quiet gallery — wide gutters, one carpet per moment, hairline structure; the carpets are drawn knot by knot on canvas and carry all the color. */
@@ -695,6 +696,113 @@ button {
   padding: 60px 0;
   color: var(--muted);
   text-align: center;
+}
+
+/* ---------- 7. Carpet guide ---------- */
+.band {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+.anat {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 72px;
+  align-items: center;
+  padding-block: 96px;
+}
+.anat-rug {
+  display: flex;
+  justify-content: center;
+  padding-block: 20px;
+}
+.anat-rug .rug {
+  width: min(100%, 360px);
+  filter: drop-shadow(var(--shadow));
+}
+.anat-rug .rug canvas {
+  cursor: default;
+}
+.anat-rug .rug.dim-fringe::before,
+.anat-rug .rug.dim-fringe::after {
+  opacity: 0.25;
+}
+.anat-rug .rug.hl-fringe::before,
+.anat-rug .rug.hl-fringe::after {
+  background: repeating-linear-gradient(90deg, #f5e7c4 0 2px, transparent 2px 4px);
+  height: 18px;
+}
+.anat-copy h2 {
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  line-height: 1.02;
+  margin: 10px 0 16px;
+}
+.anat-copy > p {
+  color: var(--muted);
+  max-width: 52ch;
+  margin-bottom: 28px;
+}
+.parts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.part {
+  width: 100%;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 4px 24px;
+  padding: 16px 8px;
+  text-align: left;
+  transition: background 0.2s;
+}
+.part:hover {
+  background: color-mix(in srgb, var(--raised) 60%, transparent);
+}
+.part[aria-pressed='true'] {
+  background: var(--raised);
+}
+.part .term {
+  display: flex;
+  flex-direction: column;
+}
+.part .term .fa {
+  font-size: 1.15rem;
+  color: var(--brass);
+  line-height: 1.5;
+}
+.part .term i {
+  font-style: normal;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.part strong {
+  font-weight: 500;
+  font-size: 1rem;
+}
+.part .desc {
+  grid-column: 2;
+  font-size: 0.9rem;
+  color: var(--muted);
+  display: none;
+}
+.part[aria-pressed='true'] .desc {
+  display: block;
+}
+@media (max-width: 900px) {
+  .anat {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-block: 72px;
+  }
+  .part {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
 }
 
 /* ---------- 11. Footer ---------- */
