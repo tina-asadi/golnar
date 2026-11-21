@@ -1,6 +1,7 @@
 /* =========================================================
    Golnar Persian Carpets: style.css
-   1 Tokens (light + dark) · 2 Base · 3 Header · 11 Footer · 13 Reduced motion
+   1 Tokens (light + dark) · 2 Base · 3 Header · 4 Hero · 11 Footer
+   13 Reduced motion
    ========================================================= */
 
 /* Layout: a quiet gallery — wide gutters, one carpet per moment, hairline structure; the carpets are drawn knot by knot on canvas and carry all the color. */
@@ -268,6 +269,227 @@ button {
   }
   .bagbtn {
     margin-left: auto;
+  }
+}
+
+/* ---------- 4. Hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  padding-block: 56px 88px;
+}
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+}
+.hero h1 {
+  font-size: clamp(3.1rem, 7.2vw, 6.4rem);
+  line-height: 0.96;
+}
+.hero h1 span {
+  color: var(--brass);
+  display: block;
+}
+.lede {
+  color: var(--muted);
+  max-width: 46ch;
+  font-size: 1.06rem;
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 44px;
+  margin: 12px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.facts dt {
+  font-family: var(--display);
+  font-size: 2rem;
+  line-height: 1;
+}
+.facts dd {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 24px;
+  min-width: 0;
+}
+.arch {
+  position: absolute;
+  inset: 0 6% 64px;
+  border-radius: 50% 50% 0 0/28% 28% 0 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.arch::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border-radius: inherit;
+  border: 1px solid var(--brass);
+  opacity: 0.35;
+}
+.fa-bg {
+  position: absolute;
+  top: -30px;
+  left: -4%;
+  font-family: var(--nastaliq);
+  font-size: clamp(7rem, 15vw, 13rem);
+  line-height: 1.5;
+  color: var(--brass);
+  opacity: 0.13;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-rug {
+  position: relative;
+  z-index: 1;
+  margin: 44px 0 0;
+  width: min(70%, 380px);
+}
+.rug {
+  position: relative;
+  line-height: 0;
+}
+.rug canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+}
+.rug::before,
+.rug::after {
+  content: '';
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  height: 12px;
+  background: repeating-linear-gradient(90deg, #e8deca 0 1.5px, transparent 1.5px 4px);
+  transition: opacity 0.3s;
+}
+.rug::before {
+  bottom: 100%;
+}
+.rug::after {
+  top: 100%;
+}
+.hero-rug .rug {
+  filter: drop-shadow(var(--shadow));
+  animation: unroll 1.7s cubic-bezier(0.2, 0.75, 0.15, 1) both;
+}
+@keyframes unroll {
+  from {
+    clip-path: inset(-20px -4px 58% -4px);
+  }
+  to {
+    clip-path: inset(-20px -4px -20px -4px);
+  }
+}
+.spec {
+  position: absolute;
+  z-index: 2;
+  left: -26%;
+  bottom: 12%;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.4;
+  min-width: 190px;
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.4);
+}
+.spec b {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+.spec span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.hint {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 18px;
+}
+.lens {
+  position: absolute;
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  border: 1px solid var(--brass);
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.55),
+    0 0 0 6px color-mix(in srgb, var(--bg) 70%, transparent);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+.lens-tag {
+  position: absolute;
+  z-index: 6;
+  transform: translate(-50%, 104px);
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 56px;
+    padding-block: 40px 64px;
+  }
+  .spec {
+    left: auto;
+    right: -8%;
+    bottom: 6%;
+  }
+}
+@media (max-width: 520px) {
+  .spec {
+    position: static;
+    margin-top: 28px;
+  }
+  .hero-rug {
+    width: min(78%, 340px);
   }
 }
 
