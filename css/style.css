@@ -1,7 +1,7 @@
 /* =========================================================
    Golnar Persian Carpets: style.css
-   1 Tokens (light + dark) · 2 Base · 3 Header · 4 Hero · 11 Footer
-   13 Reduced motion
+   1 Tokens (light + dark) · 2 Base · 3 Header · 4 Hero · 5 Weaving cities
+   6 Collection · 11 Footer · 12 Bag, detail and toast · 13 Reduced motion
    ========================================================= */
 
 /* Layout: a quiet gallery — wide gutters, one carpet per moment, hairline structure; the carpets are drawn knot by knot on canvas and carry all the color. */
@@ -493,6 +493,210 @@ button {
   }
 }
 
+/* ---------- 5. Weaving cities ---------- */
+.cities {
+  border-block: 1px solid var(--line);
+  padding-block: 28px;
+}
+.cities .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.city-row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0;
+}
+.city {
+  background: none;
+  border: 0;
+  border-left: 1px solid var(--line);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  text-align: left;
+  transition: background 0.2s;
+}
+.city:last-child {
+  border-right: 1px solid var(--line);
+}
+.city:hover {
+  background: var(--surface);
+}
+.city .fa {
+  font-family: var(--nastaliq);
+  font-size: 1.25rem;
+  line-height: 2.1;
+  color: var(--brass);
+}
+.city span:last-child {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .city-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .city:nth-child(4) {
+    border-right: 1px solid var(--line);
+  }
+}
+
+/* ---------- 6. Collection ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-bottom: 36px;
+  align-items: center;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 7px 14px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.chip:hover {
+  color: var(--ink);
+  border-color: var(--muted);
+}
+.chip[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.filters .sep {
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 44px 28px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.frame {
+  aspect-ratio: 3/4;
+  max-width: 100%;
+  width: 100%;
+  background: var(--surface);
+  border: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.frame .rug {
+  height: 74%;
+  width: auto;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  filter: drop-shadow(0 18px 18px rgba(20, 16, 30, 0.3));
+}
+.frame .rug::before,
+.frame .rug::after {
+  height: 7px;
+}
+.frame .rug canvas {
+  height: 100%;
+  width: auto;
+  cursor: pointer;
+}
+.frame:hover .rug {
+  transform: translateY(-6px) scale(1.02);
+}
+.frame .no {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.card-city {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.card-city .fa {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.card h3 {
+  font-size: 1.55rem;
+  line-height: 1.15;
+}
+.card .specline {
+  font-size: 0.84rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  margin-top: 6px;
+}
+.price {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.price small {
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  margin-left: 4px;
+}
+.add {
+  background: none;
+  border: 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ink);
+}
+.add[disabled] {
+  color: var(--brass);
+  border-color: transparent;
+  cursor: default;
+}
+.empty {
+  grid-column: 1/-1;
+  padding: 60px 0;
+  color: var(--muted);
+  text-align: center;
+}
+
 /* ---------- 11. Footer ---------- */
 footer {
   border-top: 1px solid var(--line);
@@ -515,6 +719,259 @@ footer {
   font-size: 2.2rem;
   line-height: 1.8;
   color: var(--brass);
+}
+
+/* ---------- 12. Bag, detail and toast ---------- */
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: var(--scrim);
+  z-index: 70;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.scrim.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 100%);
+  background: var(--raised);
+  z-index: 80;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: calc(24px + env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-right, 0px))
+    calc(24px + env(safe-area-inset-bottom, 0px)) 24px;
+  border-left: 1px solid var(--line);
+}
+.drawer.open {
+  transform: none;
+}
+.drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-head h2 {
+  font-size: 2rem;
+}
+.x {
+  background: none;
+  border: 1px solid var(--line);
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.x:hover {
+  border-color: var(--ink);
+}
+.bag-list {
+  flex: 1;
+  overflow: auto;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+.bag-item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.bag-item .thumb {
+  width: 56px;
+  height: 70px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bag-item .thumb canvas {
+  max-height: 56px;
+  max-width: 44px;
+}
+.bag-item b {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  display: block;
+  line-height: 1.2;
+}
+.bag-item span {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.bag-item .rm {
+  background: none;
+  border: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+}
+.bag-empty {
+  padding: 40px 0;
+  color: var(--muted);
+}
+.bag-foot {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.bag-foot .row {
+  display: flex;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+.bag-foot .row span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.bag-foot .btn {
+  justify-content: center;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px))
+    calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.panel {
+  background: var(--raised);
+  border: 1px solid var(--line);
+  width: min(1000px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  position: relative;
+}
+.panel .x {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  background: var(--raised);
+}
+.panel-art {
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 32px;
+  position: relative;
+}
+.panel-art .rug {
+  width: min(100%, 300px);
+  filter: drop-shadow(var(--shadow));
+}
+.panel-copy {
+  padding: 48px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+.panel-copy h2 {
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  line-height: 1.05;
+}
+.panel-copy .story {
+  color: var(--muted);
+}
+.specs {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 24px;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.specs dt,
+.specs dd {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+  font-size: 0.9rem;
+}
+.specs dt {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 12px;
+}
+.specs dd {
+  font-variant-numeric: tabular-nums;
+}
+.panel-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.panel-buy .price {
+  font-size: 1.3rem;
+}
+@media (max-width: 780px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+  .panel-art {
+    padding: 48px 24px;
+  }
+  .panel-copy {
+    padding: 32px 22px;
+  }
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 20px);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 20px;
+  font-size: 0.86rem;
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+  max-width: calc(100% - 32px);
+}
+.toast.on {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 /* ---------- 13. Reduced motion ---------- */

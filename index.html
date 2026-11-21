@@ -82,6 +82,29 @@
           <p class="hint">Move across the carpet to see each knot</p>
         </div>
       </section>
+
+      <section class="cities" aria-label="Weaving cities">
+        <div class="wrap">
+          <p class="eyebrow">Shop by weaving city</p>
+          <div class="city-row" id="cityRow"></div>
+        </div>
+      </section>
+
+      <section class="wrap section" id="collection">
+        <div class="sec-head">
+          <div>
+            <p class="eyebrow">Current pieces</p>
+            <h2>The collection</h2>
+          </div>
+          <p class="note" id="countNote"></p>
+        </div>
+        <div class="filters">
+          <div class="chips" id="cityChips" aria-label="Filter by city"></div>
+          <span class="sep" aria-hidden="true"></span>
+          <div class="chips" id="sizeChips" aria-label="Filter by size"></div>
+        </div>
+        <div class="grid" id="grid"></div>
+      </section>
     </main>
 
     <footer>
@@ -96,5 +119,28 @@
         <p>Concept store · Design and development by <a href="../golnar.html" target="_top">Tina Asadi</a></p>
       </div>
     </footer>
+
+    <div class="scrim" id="scrim"></div>
+    <aside class="drawer" id="drawer" aria-label="Your bag" aria-hidden="true">
+      <div class="drawer-head">
+        <h2>Your bag</h2>
+        <button class="x" id="bagClose" aria-label="Close bag">✕</button>
+      </div>
+      <ul class="bag-list" id="bagList"></ul>
+      <div class="bag-foot">
+        <div class="row"><span>Subtotal</span><strong id="subtotal">$0</strong></div>
+        <div class="row"><span>White-glove delivery in Canada</span><span>Included</span></div>
+        <button class="btn primary" id="checkout">Reserve pieces</button>
+      </div>
+    </aside>
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mTitle"
+      aria-hidden="true"
+    ></div>
+    <div class="toast" id="toast" role="status"></div>
   </body>
 </html>
