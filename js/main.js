@@ -282,6 +282,7 @@
     const mount = $('#anatRug');
     const carpet = createCarpet(STUDY_RUG, 80, 5, mount);
     const list = $('#parts');
+    const description = $('#partDesc');
     let active = REGION.MEDALLION;
 
     // The fringe lives outside the canvas (CSS pseudo-elements), so it is highlighted with classes.
@@ -294,9 +295,32 @@
     const select = (region) => {
       active = region;
       for (const button of $$('.part', list)) {
-        button.setAttribute('aria-pressed', String(Number(button.dataset.region) === region));
+        const on = Number(button.dataset.region) === region;
+        button.setAttribute('aria-pressed', String(on));
+        if (on && list.scrollWidth > list.clientWidth) {
+          list.scrollTo({ left: Math.max(0, button.parentElement.offsetLeft - 4), behavior: 'smooth' });
+        }
       }
+
+      const index = CARPET_PARTS.findIndex((part) => part.region === region);
+      const part = CARPET_PARTS[index];
+      description.innerHTML = `
+      <div class="pd-title"><b>${part.name}</b><i>${part.transliteration}</i></div>
+      <span class="fa" lang="fa">${part.fa}</span>
+      <p>${part.text}</p>
+      <div class="pd-nav">
+        <span>${index + 1} of ${CARPET_PARTS.length} · swipe the carpet</span>
+        <div>
+          <button type="button" data-step="-1" aria-label="Previous part">‹</button>
+          <button type="button" data-step="1" aria-label="Next part">›</button>
+        </div>
+      </div>`;
       preview(region);
+    };
+
+    const step = (direction) => {
+      const index = CARPET_PARTS.findIndex((part) => part.region === active);
+      select(CARPET_PARTS[(index + direction + CARPET_PARTS.length) % CARPET_PARTS.length].region);
     };
 
     for (const part of CARPET_PARTS) {
@@ -315,6 +339,34 @@
       item.append(button);
       list.append(item);
     }
+
+    description.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-step]');
+      if (button) step(Number(button.dataset.step));
+    });
+
+    // Swipe left or right on the carpet to move between parts on touch screens.
+    let touchX = null;
+    let touchY = null;
+    mount.addEventListener(
+      'touchstart',
+      (event) => {
+        touchX = event.touches[0].clientX;
+        touchY = event.touches[0].clientY;
+      },
+      { passive: true },
+    );
+    mount.addEventListener(
+      'touchend',
+      (event) => {
+        if (touchX === null) return;
+        const dx = event.changedTouches[0].clientX - touchX;
+        const dy = event.changedTouches[0].clientY - touchY;
+        touchX = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3) step(dx < 0 ? 1 : -1);
+      },
+      { passive: true },
+    );
 
     select(active);
   }
