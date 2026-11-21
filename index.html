@@ -274,6 +274,50 @@
           </div>
         </div>
       </section>
+
+      <section class="wrap section" id="visit">
+        <div class="visit">
+          <div class="copy">
+            <p class="eyebrow">By appointment</p>
+            <h2>See them on the floor</h2>
+            <p>
+              A carpet changes with the light and the angle you stand at. Book an hour in the showroom and we
+              will lay out the pieces you shortlist, or bring a selection to your home.
+            </p>
+            <address>
+              <strong>Golnar Showroom</strong>
+              <span>Yorkville, Toronto</span>
+              <span>Tuesday to Saturday, 11:00 to 18:00</span>
+            </address>
+          </div>
+          <form id="visitForm" novalidate>
+            <div class="field">
+              <label for="vName">Name</label><input id="vName" name="name" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="vEmail">Email</label
+              ><input id="vEmail" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="vDate">Preferred date</label><input id="vDate" name="date" type="date" />
+            </div>
+            <div class="field">
+              <label for="vWhere">Viewing</label
+              ><select id="vWhere" name="where">
+                <option>In the showroom</option>
+                <option>At my home</option>
+                <option>Video call</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="vNote">Pieces or rooms you have in mind</label
+              ><textarea id="vNote" name="note" rows="3"></textarea>
+            </div>
+            <div class="field full"><button class="btn primary" type="submit">Request a viewing</button></div>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </section>
     </main>
 
     <footer>

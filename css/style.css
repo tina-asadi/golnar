@@ -1,8 +1,8 @@
 /* =========================================================
    Golnar Persian Carpets: style.css
    1 Tokens (light + dark) · 2 Base · 3 Header · 4 Hero · 5 Weaving cities
-   6 Collection · 7 Carpet guide · 8 The making · 9 Raj calculator · 11 Footer
-   12 Bag, detail and toast · 13 Reduced motion
+   6 Collection · 7 Carpet guide · 8 The making · 9 Raj calculator
+   10 Private viewing · 11 Footer · 12 Bag, detail and toast · 13 Reduced motion
    ========================================================= */
 
 /* Layout: a quiet gallery — wide gutters, one carpet per moment, hairline structure; the carpets are drawn knot by knot on canvas and carry all the color. */
@@ -1034,6 +1034,93 @@ select {
   .results {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ---------- 10. Private viewing ---------- */
+.visit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 72px;
+}
+.visit h2 {
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  line-height: 1.02;
+  margin: 10px 0 16px;
+}
+.visit .copy p {
+  color: var(--muted);
+  max-width: 46ch;
+}
+.visit address {
+  font-style: normal;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.92rem;
+}
+.visit address span {
+  color: var(--muted);
+}
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.field.full {
+  grid-column: 1/-1;
+}
+.field label {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+  border-radius: 0;
+  width: 100%;
+}
+.field select {
+  background: var(--bg);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--brass);
+}
+.form-note {
+  grid-column: 1/-1;
+  font-size: 0.9rem;
+  color: var(--brass);
+  min-height: 1.5em;
+}
+@media (max-width: 860px) {
+  .visit {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  form {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field .btn {
+  justify-self: start;
 }
 
 /* ---------- 11. Footer ---------- */

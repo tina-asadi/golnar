@@ -379,6 +379,34 @@
     update();
   }
 
+  /* ---------- Private viewing form ---------- */
+
+  function initVisitForm() {
+    const form = $('#visitForm');
+    const note = $('#formNote');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nameInput = $('#vName');
+      const emailInput = $('#vEmail');
+      const name = nameInput.value.trim();
+
+      if (!name) {
+        note.textContent = 'Please add your name so we know who to expect.';
+        nameInput.focus();
+        return;
+      }
+      if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+        note.textContent = 'Please enter an email address like name@example.com.';
+        emailInput.focus();
+        return;
+      }
+
+      note.textContent = `Thank you, ${name}. This is a portfolio demo, so no request was sent.`;
+      form.reset();
+    });
+  }
+
   /* ---------- Start ---------- */
 
   initHero();
@@ -388,4 +416,5 @@
   initBag();
   initCarpetGuide();
   initDensityCalculator();
+  initVisitForm();
 })();
