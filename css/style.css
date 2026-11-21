@@ -1,8 +1,8 @@
 /* =========================================================
    Golnar Persian Carpets: style.css
    1 Tokens (light + dark) · 2 Base · 3 Header · 4 Hero · 5 Weaving cities
-   6 Collection · 7 Carpet guide · 11 Footer · 12 Bag, detail and toast
-   13 Reduced motion
+   6 Collection · 7 Carpet guide · 8 The making · 11 Footer
+   12 Bag, detail and toast · 13 Reduced motion
    ========================================================= */
 
 /* Layout: a quiet gallery — wide gutters, one carpet per moment, hairline structure; the carpets are drawn knot by knot on canvas and carry all the color. */
@@ -803,6 +803,121 @@ button {
   .part {
     grid-template-columns: 110px minmax(0, 1fr);
   }
+}
+
+/* ---------- 8. The making ---------- */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.step {
+  padding: 28px 22px 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.step + .step {
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+}
+.step .num {
+  font-family: var(--display);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--brass);
+}
+.step h3 {
+  font-size: 1.45rem;
+}
+.step .fa {
+  font-size: 0.9rem;
+  color: var(--muted);
+  align-self: flex-start;
+}
+.step p {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+@media (max-width: 1000px) {
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+  .step {
+    border-left: 0 !important;
+    padding: 24px 16px 8px 0 !important;
+    border-bottom: 1px solid var(--line);
+  }
+}
+@media (max-width: 560px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+.dyes {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dye-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+}
+.dye {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+}
+.dye .sw {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 50%;
+  box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.25);
+}
+.dye b {
+  display: block;
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+.dye span {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+@media (max-width: 1000px) {
+  .dye-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .dye-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dye swatches in "The dye garden" */
+.sw--madder {
+  background: #9b2226;
+}
+.sw--indigo {
+  background: #1f2e5a;
+}
+.sw--pomegranate {
+  background: #c9a04a;
+}
+.sw--weld {
+  background: #d9b83a;
+}
+.sw--walnut {
+  background: #5a4130;
 }
 
 /* ---------- 11. Footer ---------- */
