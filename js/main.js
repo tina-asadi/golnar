@@ -319,6 +319,66 @@
     select(active);
   }
 
+  /* ---------- Raj calculator ---------- */
+
+  function initDensityCalculator() {
+    const rajInput = $('#rajIn');
+    const sizeInput = $('#sizeIn');
+    const weaversInput = $('#weavIn');
+    const swatch = $('#swatch');
+    const ctx = swatch.getContext('2d');
+    const sample = createPattern(RUGS[0], 90); // the swatch borrows colours from the hero Kashan
+
+    const update = () => {
+      const raj = Number(rajInput.value);
+      const [width, length] = sizeInput.value.split('x').map(Number);
+      const weavers = Number(weaversInput.value);
+      const stats = knotStats(width, length, raj, weavers);
+
+      $('#rajOut').textContent = raj;
+      $('#weavOut').textContent = weavers;
+      $('#areaOut').textContent = `${((width * length) / 1e4).toFixed(1).replace('.0', '')} m²`;
+      $('#kpsiOut').textContent = stats.perSquareInch;
+      $('#totOut').textContent = `${(stats.total / 1e6).toFixed(1)}M`;
+      $('#moOut').textContent = stats.months;
+      $('#swatchCap').textContent = `One square inch · ${stats.perInch} knots across`;
+
+      // Draw one square inch of knots at the chosen density.
+      const n = stats.perInch;
+      const size = swatch.width;
+      const cell = size / n;
+      const gap = Math.max(1, cell * 0.08);
+      const startX = Math.floor(sample.W / 2 - n / 2);
+      const startY = Math.floor(sample.H / 2 - n * 0.9);
+
+      ctx.fillStyle = '#E8DECA';
+      ctx.fillRect(0, 0, size, size);
+      for (let j = 0; j < n; j++) {
+        for (let i = 0; i < n; i++) {
+          const kx = Math.min(sample.W - 1, Math.max(0, startX + i));
+          const ky = Math.min(sample.H - 1, Math.max(0, startY + j));
+          const x0 = i * cell;
+          const y0 = j * cell;
+
+          ctx.fillStyle = sample.palette.colors[sample.color[ky * sample.W + kx]];
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(x0 + gap / 2, y0 + gap / 2, cell - gap, cell - gap, cell * 0.28);
+          else ctx.rect(x0 + gap / 2, y0 + gap / 2, cell - gap, cell - gap);
+          ctx.fill();
+
+          const tuft = ctx.createLinearGradient(0, y0, 0, y0 + cell);
+          tuft.addColorStop(0, 'rgba(255,255,255,.16)');
+          tuft.addColorStop(1, 'rgba(0,0,0,.3)');
+          ctx.fillStyle = tuft;
+          ctx.fill();
+        }
+      }
+    };
+
+    for (const input of [rajInput, sizeInput, weaversInput]) input.addEventListener('input', update);
+    update();
+  }
+
   /* ---------- Start ---------- */
 
   initHero();
@@ -327,4 +387,5 @@
   renderGrid();
   initBag();
   initCarpetGuide();
+  initDensityCalculator();
 })();

@@ -217,6 +217,63 @@
           </div>
         </div>
       </section>
+
+      <section class="band" id="density">
+        <div class="wrap calc">
+          <div>
+            <p class="eyebrow">Knot density</p>
+            <h2>What a raj means</h2>
+            <p class="intro">
+              In Iran, fineness is counted in raj: the number of knots across 7 centimetres of width. Change
+              the numbers to see what they mean for a single carpet.
+            </p>
+            <div class="ctrl">
+              <label for="rajIn">Raj</label
+              ><input type="range" id="rajIn" min="25" max="80" step="5" value="50" /><output
+                id="rajOut"
+                for="rajIn"
+                >50</output
+              >
+            </div>
+            <div class="ctrl">
+              <label for="sizeIn">Size</label
+              ><select id="sizeIn">
+                <option value="140x200">140 × 200 cm</option>
+                <option value="200x300" selected>200 × 300 cm</option>
+                <option value="250x350">250 × 350 cm</option>
+                <option value="300x400">300 × 400 cm</option></select
+              ><span class="val" id="areaOut">6 m²</span>
+            </div>
+            <div class="ctrl">
+              <label for="weavIn">Weavers</label
+              ><input type="range" id="weavIn" min="1" max="4" step="1" value="2" /><output
+                id="weavOut"
+                for="weavIn"
+                >2</output
+              >
+            </div>
+            <div class="results">
+              <div><b id="kpsiOut">329</b><span>Knots per sq. inch</span></div>
+              <div><b id="totOut">3.1M</b><span>Knots in total</span></div>
+              <div><b id="moOut">6</b><span>Months on the loom</span></div>
+            </div>
+            <p class="assume">
+              Assumes a skilled weaver ties about 10,000 knots a day and works 25 days a month. Real figures
+              vary with the design and the workshop.
+            </p>
+          </div>
+          <div class="swatch">
+            <canvas
+              id="swatch"
+              width="640"
+              height="640"
+              role="img"
+              aria-label="One square inch of carpet at the chosen density"
+            ></canvas>
+            <p id="swatchCap">One square inch · 18 knots across</p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
