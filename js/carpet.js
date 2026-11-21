@@ -265,3 +265,92 @@ function paint(carpet, highlight) {
   ctx.fillStyle = ctx.createPattern(knotTexture(knotSize), 'repeat');
   ctx.fillRect(0, 0, W * knotSize, H * knotSize);
 }
+
+/** Show a round magnifier of individual knots while the pointer moves over the carpet. */
+function attachKnotLoupe(container, carpet) {
+  const SIZE = 176;
+  const KNOTS_VISIBLE = 13;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const px = SIZE * dpr;
+
+  const lens = document.createElement('canvas');
+  lens.className = 'lens';
+  lens.width = lens.height = px;
+  lens.hidden = true;
+
+  const label = document.createElement('span');
+  label.className = 'lens-tag';
+  label.hidden = true;
+  container.append(lens, label);
+
+  const ctx = lens.getContext('2d');
+  const { rug } = carpet;
+  const density = rug.raj ? knotStats(rug.width, rug.length, rug.raj, 1).perSquareInch : null;
+
+  const hide = () => {
+    lens.hidden = true;
+    label.hidden = true;
+  };
+
+  container.addEventListener('pointermove', (event) => {
+    const rect = carpet.canvas.getBoundingClientRect();
+    const ox = event.clientX - rect.left;
+    const oy = event.clientY - rect.top;
+    if (ox < 0 || oy < 0 || ox > rect.width || oy > rect.height) return hide();
+
+    const kx = (ox / rect.width) * carpet.W;
+    const ky = (oy / rect.height) * carpet.H;
+    const cell = px / KNOTS_VISIBLE;
+    const startX = Math.floor(kx - KNOTS_VISIBLE / 2);
+    const startY = Math.floor(ky - KNOTS_VISIBLE / 2);
+    const offsetX = (startX - (kx - KNOTS_VISIBLE / 2)) * cell;
+    const offsetY = (startY - (ky - KNOTS_VISIBLE / 2)) * cell;
+
+    ctx.save();
+    ctx.clearRect(0, 0, px, px);
+    ctx.beginPath();
+    ctx.arc(px / 2, px / 2, px / 2, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.fillStyle = '#E8DECA'; // undyed warp showing between knots
+    ctx.fillRect(0, 0, px, px);
+
+    for (let j = 0; j <= KNOTS_VISIBLE; j++) {
+      for (let i = 0; i <= KNOTS_VISIBLE; i++) {
+        const knotX = startX + i;
+        const knotY = startY + j;
+        if (knotX < 0 || knotY < 0 || knotX >= carpet.W || knotY >= carpet.H) continue;
+
+        const x0 = offsetX + i * cell;
+        const y0 = offsetY + j * cell;
+        ctx.fillStyle = carpet.palette.colors[carpet.color[knotY * carpet.W + knotX]];
+        ctx.fillRect(x0, y0, cell, cell);
+
+        const tuft = ctx.createLinearGradient(0, y0, 0, y0 + cell);
+        tuft.addColorStop(0, 'rgba(255,255,255,.18)');
+        tuft.addColorStop(1, 'rgba(0,0,0,.28)');
+        ctx.fillStyle = tuft;
+        ctx.fillRect(x0, y0, cell, cell);
+
+        // the loop of the knot around its warp threads
+        ctx.strokeStyle = 'rgba(0,0,0,.28)';
+        ctx.lineWidth = Math.max(1, cell * 0.06);
+        ctx.beginPath();
+        ctx.moveTo(x0 + cell * 0.12, y0 + cell * 0.18);
+        ctx.quadraticCurveTo(x0 + cell * 0.5, y0 + cell * 1.05, x0 + cell * 0.88, y0 + cell * 0.18);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(0,0,0,.18)';
+        ctx.strokeRect(x0, y0, cell, cell);
+      }
+    }
+    ctx.restore();
+
+    const box = container.getBoundingClientRect();
+    lens.style.left = label.style.left = `${event.clientX - box.left}px`;
+    lens.style.top = label.style.top = `${event.clientY - box.top}px`;
+    label.textContent = `Row ${Math.floor(ky) + 1} · Knot ${Math.floor(kx) + 1}${density ? ` · ${density} per in²` : ''}`;
+    lens.hidden = false;
+    label.hidden = false;
+  });
+
+  container.addEventListener('pointerleave', hide);
+}

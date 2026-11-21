@@ -24,7 +24,7 @@
   function initHero() {
     const rug = RUGS[0];
     const mount = $('#heroRug');
-    createCarpet(rug, 90, 6, mount);
+    attachKnotLoupe(mount, createCarpet(rug, 90, 6, mount));
 
     const { months } = knotStats(rug.width, rug.length, rug.raj, rug.weavers);
     $('#heroSpec').innerHTML = `
